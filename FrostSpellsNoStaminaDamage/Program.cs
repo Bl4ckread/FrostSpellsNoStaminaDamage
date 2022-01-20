@@ -4,6 +4,7 @@ using System.Linq;
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
+using Mutagen.Bethesda.Plugins;
 using System.Threading.Tasks;
 
 namespace FrostSpellsNoStaminaDamage
@@ -47,10 +48,12 @@ namespace FrostSpellsNoStaminaDamage
                 var magicEffect = magicEffectGetter.Record;
                 if (magicEffect.SecondActorValue == ActorValue.Stamina && magicEffect.Flags.ToString().Contains("Detrimental"))
                 {
-                    if (Settings.IgnoredMods.Contains(magicEffectGetter.ModKey) || magicEffect.EditorID == null ||
+                    var contexts = state.LinkCache.ResolveAllContexts<IMagicEffect, IMagicEffectGetter>(magicEffect.FormKey).ToList();
+                    var originalMod = contexts[contexts.Count() - 1].ModKey;
+                    if (Settings.IgnoredMods.Contains(originalMod) || magicEffect.EditorID == null ||
                         blacklistedIDs.Any(magicEffect.EditorID.ContainsInsensitive))
                     {
-                        Console.WriteLine("Skipping " + magicEffect.EditorID + " from mod " + magicEffectGetter.ModKey);
+                        Console.WriteLine("Skipping " + magicEffect.EditorID + " from mod " + originalMod);
                         continue;
                     }
                     IMagicEffect modifiedEffect = magicEffectGetter.GetOrAddAsOverride(state.PatchMod);
