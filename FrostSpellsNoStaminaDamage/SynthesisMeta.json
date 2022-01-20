@@ -1,0 +1,7 @@
+{
+    "Nickname": "Frost Spells Don't Damage Stamina",
+    "Visibility": "Visible",
+    "OneLineDescription": "Removes stamina damage from frost spells.",
+    "LongDescription": "Frost spells damaging stamina can be a bit OP (and annoying) with setups where the player and/or NPCs require stamina to attack. This patcher removes the stamina damage effect from frost spells.",
+    "PreferredAutoVersioning": "Default"
+  }
