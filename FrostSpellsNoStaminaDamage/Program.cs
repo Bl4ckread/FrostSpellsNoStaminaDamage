@@ -57,7 +57,7 @@ namespace FrostSpellsNoStaminaDamage
                         continue;
                     }
                     IMagicEffect modifiedEffect = magicEffectGetter.GetOrAddAsOverride(state.PatchMod);
-                    modifiedEffect.SecondActorValue = ActorValue.None;
+                    modifiedEffect.SecondActorValueWeight = 0;
                 }
             }
         }
